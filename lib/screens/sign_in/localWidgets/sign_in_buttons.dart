@@ -52,6 +52,12 @@ class SignInButtons extends StatelessWidget {
                 horizontal: Config.screenWidth! * 0.4,
                 vertical: Config.screenHeight! * 0.02),
           ),
+          ElevatedButton(
+            onPressed: () {
+              _authController.signInWithGoogle();
+            },
+            child: Text('Google Auth'),
+          ),
           TextWithTextButton(
             text: 'Don\'t have an account?',
             textButtonText: 'Sign Up',

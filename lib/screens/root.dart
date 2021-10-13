@@ -18,10 +18,9 @@ class Root extends StatelessWidget {
         builder: (_) {
           return SafeArea(
             child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: Config.screenWidth! * 0.04),
-              child: _.userProfile != null ? Home() : SignIn(),
-            ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Config.screenWidth! * 0.04),
+                child: _.isSignedIn.value ? Home() : SignIn()),
           );
         },
       ),

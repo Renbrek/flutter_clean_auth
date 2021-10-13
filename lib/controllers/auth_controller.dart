@@ -2,11 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_clean_auth/config.dart';
 import 'package:flutter_clean_auth/screens/root.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   var displayName = ''; // to show the user name when signed in
+  var auth = FirebaseAuth.instance;
+  var _googleSignIn = GoogleSignIn();
+  var googleAcc = Rx<GoogleSignInAccount?>(null);
+  var isSignedIn = false.obs;
 
-  FirebaseAuth auth = FirebaseAuth.instance;
   User? get userProfile => auth.currentUser;
 
   void signUp(String name, String email, String password) async {
@@ -63,6 +67,22 @@ class AuthController extends GetxController {
     }
   }
 
+  void signInWithGoogle() async {
+    try {
+      googleAcc.value = await _googleSignIn.signIn();
+      displayName = googleAcc.value!.displayName!;
+      isSignedIn.value = true;
+      update();
+    } catch (e) {
+      Get.snackbar(
+        'Sign In With Google Error',
+        e.toString(),
+        backgroundColor: kPrimaryColor,
+        colorText: kBackgroundColor,
+      );
+    }
+  }
+
   void resetPassword(String email) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
@@ -79,7 +99,9 @@ class AuthController extends GetxController {
   void signOut() async {
     try {
       await auth.signOut();
+      await _googleSignIn.signOut();
       displayName = '';
+      isSignedIn.value = false;
       update();
       Get.offAll(() => Root());
     } catch (e) {
