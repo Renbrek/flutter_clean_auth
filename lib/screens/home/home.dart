@@ -23,6 +23,11 @@ class Home extends StatelessWidget {
             flex: 8,
             child: Container(),
           ),
+          ElevatedButton(
+              onPressed: () {
+                _authController.getGoogleAccessToken();
+              },
+              child: Text('Token')),
           RoundedElevatedButton(
             title: 'Sign Out!',
             onPressed: () => _authController.signOut(),

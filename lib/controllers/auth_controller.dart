@@ -8,7 +8,9 @@ class AuthController extends GetxController {
   var displayName = ''; // to show the user name when signed in
   var auth = FirebaseAuth.instance;
   var _googleSignIn = GoogleSignIn();
+  // var _googleSignInUserData = GoogleSignInUserData(email: email, id: id);
   var googleAcc = Rx<GoogleSignInAccount?>(null);
+  var googleAuth = Rx<GoogleSignInAuthentication?>(null);
   var isSignedIn = false.obs;
 
   User? get userProfile => auth.currentUser;
@@ -81,6 +83,12 @@ class AuthController extends GetxController {
         colorText: kBackgroundColor,
       );
     }
+  }
+
+  void getGoogleAccessToken() async {
+    googleAuth.value = await googleAcc.value!.authentication;
+    var TOKEN = googleAuth.value!.accessToken;
+    print('TOKEN: $TOKEN');
   }
 
   void resetPassword(String email) async {
