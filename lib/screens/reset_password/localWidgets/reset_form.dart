@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_auth/controllers/auth_controller.dart';
 import 'package:flutter_clean_auth/widgets/rounded_elevated_button.dart';
 import 'package:flutter_clean_auth/widgets/rounded_text_formfield.dart';
+import 'package:get/get.dart';
 
 import '../../../config.dart';
 
@@ -19,6 +21,8 @@ class _ResetFormState extends State<ResetForm> {
 
   @override
   Widget build(BuildContext context) {
+    final _authController = Get.find<AuthController>();
+
     return Form(
       key: _formKey,
       child: Column(
@@ -39,9 +43,12 @@ class _ResetFormState extends State<ResetForm> {
           SizedBox(height: Config.screenHeight! * 0.03),
           RoundedElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                String email = _emailController.text.trim();
+                _authController.resetPassword(email);
+              }
             },
-            title: 'Sign Up',
+            title: 'Recover',
             padding: EdgeInsets.symmetric(
               horizontal: Config.screenWidth! * 0.38,
               vertical: Config.screenHeight! * 0.02,

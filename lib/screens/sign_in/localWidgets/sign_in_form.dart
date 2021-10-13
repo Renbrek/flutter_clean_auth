@@ -58,6 +58,7 @@ class _SingInFormState extends State<SingInForm> {
           height: Config.screenHeight! * 0.01,
         ),
         RoundedTextFormField(
+          obsecureText: true,
           controller: _passwordController,
           hintText: 'Password',
           validator: (value) {

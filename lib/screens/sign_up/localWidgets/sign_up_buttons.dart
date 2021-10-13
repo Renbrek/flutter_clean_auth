@@ -28,6 +28,7 @@ class SignUpButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _authController = Get.find<AuthController>();
+    
     return Expanded(
       flex: 4,
       child: Column(

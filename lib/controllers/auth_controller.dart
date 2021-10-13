@@ -46,4 +46,56 @@ class AuthController extends GetxController {
       );
     }
   }
+
+  void signIn(String email, String password) async {
+    try {
+      await auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) => displayName = userProfile!.displayName!);
+      update();
+    } catch (e) {
+      Get.snackbar(
+        'Sign In Error',
+        e.toString(),
+        backgroundColor: kPrimaryColor,
+        colorText: kBackgroundColor,
+      );
+    }
+  }
+
+  void resetPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      Get.snackbar(
+        'Reset Password Error',
+        e.toString(),
+        backgroundColor: kPrimaryColor,
+        colorText: kBackgroundColor,
+      );
+    }
+  }
+
+  void signOut() async {
+    try {
+      await auth.signOut();
+      displayName = '';
+      update();
+      Get.offAll(() => Root());
+    } catch (e) {
+      Get.snackbar(
+        'Sign Out Error',
+        e.toString(),
+        backgroundColor: kPrimaryColor,
+        colorText: kBackgroundColor,
+      );
+    }
+  }
+}
+
+//to capitalaize the first letter
+extension StringExtension on String {
+  String capitalizeString() {
+    return '${this[0].toUpperCase()}${this.substring(1)}';
+  }
 }

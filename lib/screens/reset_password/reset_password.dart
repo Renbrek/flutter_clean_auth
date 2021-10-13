@@ -16,24 +16,29 @@ class ResetPassword extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: Config.screenWidth! * 0.04),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  onPressed: () => Get.back(),
-                  icon: Icon(Icons.close),
-                ),
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: Config.screenHeight!),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () => Get.back(),
+                      icon: Icon(Icons.close),
+                    ),
+                  ),
+                  HeroTitle(
+                      title: 'Recovery',
+                      subtitle: 'Please enter your account email'),
+                  HeroImage(path: 'assets/images/reset_password_img.png'),
+                  ResetForm(),
+                  SizedBox(
+                    height: Config.screenHeight! * 0.2,
+                  ),
+                ],
               ),
-              HeroTitle(
-                  title: 'Recovery',
-                  subtitle: 'Please enter your account email'),
-              HeroImage(path: 'assets/images/reset_password_img.png'),
-              ResetForm(),
-              SizedBox(
-                height: Config.screenHeight! * 0.2,
-              ),
-            ],
+            ),
           ),
         ),
       ),

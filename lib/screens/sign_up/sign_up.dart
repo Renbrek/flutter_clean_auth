@@ -26,23 +26,28 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.symmetric(horizontal: Config.screenWidth! * 0.04),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              HeroTitle(title: 'Sign Up', subtitle: 'Create an account...'),
-              Flexible(
-                flex: 1,
-                child: SizedBox(
-                  height: Config.screenHeight! * 0.08,
-                ),
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: Config.screenHeight!),
+              child: Column(
+                children: [
+                  HeroTitle(title: 'Sign Up', subtitle: 'Create an account...'),
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      height: Config.screenHeight! * 0.08,
+                    ),
+                  ),
+                  buildTextFormFields(),
+                  SignUpButtons(
+                    formKey: _formKey,
+                    emailController: _emailController,
+                    nameController: _nameController,
+                    passwordController: _passwordController,
+                  ),
+                ],
               ),
-              buildTextFormFields(),
-              SignUpButtons(
-                formKey: _formKey,
-                emailController: _emailController,
-                nameController: _nameController,
-                passwordController: _passwordController,
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -85,6 +90,7 @@ class _SignUpState extends State<SignUp> {
           ),
           RoundedTextFormField(
             controller: _passwordController,
+            obsecureText: true,
             hintText: 'Password',
             validator: (value) {
               if (value.toString().length < 6) {
@@ -97,7 +103,7 @@ class _SignUpState extends State<SignUp> {
             height: Config.screenHeight! * 0.02,
           ),
           RoundedTextFormField(
-            controller: _passwordController,
+            obsecureText: true,
             hintText: 'Password',
             validator: (value) {
               if (value.trim() != _passwordController.text.trim()) {

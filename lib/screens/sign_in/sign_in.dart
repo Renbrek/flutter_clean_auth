@@ -3,23 +3,30 @@ import 'package:flutter_clean_auth/screens/sign_in/localWidgets/sign_in_form.dar
 import 'package:flutter_clean_auth/widgets/hero_image.dart';
 import 'package:flutter_clean_auth/widgets/hero_title.dart';
 
+import '../../config.dart';
+
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // shows header title
-        HeroTitle(
-          title: 'Welcome!',
-          subtitle: 'Enter email and password to login...!',
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: Config.screenHeight!),
+        child: Column(
+          children: [
+            // shows header title
+            HeroTitle(
+              title: 'Welcome!',
+              subtitle: 'Enter email and password to login...!',
+            ),
+            // shows image title
+            HeroImage(path: 'assets/images/sign_in_img.png'),
+            // shows textfierlds and buttons
+            SingInForm(),
+          ],
         ),
-        // shows image title
-        HeroImage(path: 'assets/images/sign_in_img.png'),
-        // shows textfierlds and buttons
-        SingInForm(),
-      ],
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_auth/controllers/auth_controller.dart';
 import 'package:flutter_clean_auth/screens/reset_password/reset_password.dart';
 import 'package:flutter_clean_auth/screens/sign_up/sign_up.dart';
 import 'package:flutter_clean_auth/widgets/rounded_elevated_button.dart';
@@ -21,6 +22,7 @@ class SignInButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authController = Get.find<AuthController>();
     return Expanded(
       flex: 1,
       child: Column(
@@ -42,6 +44,8 @@ class SignInButtons extends StatelessWidget {
               if (formKey!.currentState!.validate()) {
                 String email = emailController!.text.trim();
                 String password = passwordController!.text;
+
+                _authController.signIn(email, password);
               }
             },
             padding: EdgeInsets.symmetric(
